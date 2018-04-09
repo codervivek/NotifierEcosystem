@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "200629852636-el15j52q31tlbevvt4mhs8dag121g7oc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.software.vivek.notifierecosytem2",
+            "certificate_hash": "4409c590b459d639cbbe3ec26a480933c0f9a3d3"
+          }
+        },
+        {
           "client_id": "200629852636-1hvjfni76nfj0eqqiq8o86hjbl2gbphi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

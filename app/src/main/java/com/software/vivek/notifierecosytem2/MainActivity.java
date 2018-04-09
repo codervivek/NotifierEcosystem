@@ -1,103 +1,94 @@
+
 package com.software.vivek.notifierecosytem2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.software.vivek.notifierecosytem2.fragment.MyNotificationsFragment;
+import com.software.vivek.notifierecosytem2.fragment.MyPastRecords;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends BaseActivity {
 
-    private TextView mTextMessage;
-    private FirebaseDatabase database;
-    DatabaseReference state;
+    private static final String TAG = "MainActivity";
+    private FragmentPagerAdapter mPagerAdapter;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
-    private EditText emailText;
-    private EditText passText;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
+    private ViewPager mViewPager;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+//        String key = mDatabase.child("notifications").push().getKey();
+//        Log.e("dsjkfjkl",key);
         setContentView(R.layout.activity_main);
 
-        emailText = (EditText) findViewById(R.id.username);
-        passText = (EditText) findViewById(R.id.password);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+        // Create the adapter that will return a fragment for each section
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private final Fragment[] mFragments = new Fragment[] {
+                    new MyNotificationsFragment(),
+//                    new MyPastRecords()
+            };
+            private final String[] mFragmentNames = new String[] {
+                    getString(R.string.heading_pending),
+//                    getString(R.string.heading_all)
+            };
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser()!=null){
-                    Intent intent = new Intent(MainActivity.this,LoggedIn.class);
-                    startActivity(intent);
-                }
+            public Fragment getItem(int position) {
+                return mFragments[position];
+            }
+            @Override
+            public int getCount() {
+                return mFragments.length;
+            }
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mFragmentNames[position];
             }
         };
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(mPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        // Button launches NewPostActivity
+//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
+//            }
+//        });
+
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(authStateListener);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
     }
 
-    public void onLoginClick(View view){
-        String email = emailText.getText().toString();
-        String password = passText.getText().toString();
-
-        if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Enter both username and password",Toast.LENGTH_LONG).show();
-        }
-        else {
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(!task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,"Incorrect username or password",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, com.software.vivek.notifierecosytem2.SignInActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
