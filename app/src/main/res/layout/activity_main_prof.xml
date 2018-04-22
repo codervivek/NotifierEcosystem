@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_color"
+    tools:context=".MainActivityProfessor">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_email_password"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:orientation="horizontal"/>-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+        <!--android:id="@+id/layout_buttons"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:orientation="horizontal" />-->
+
+        <Button
+            android:id="@+id/button_create_course"
+            android:layout_marginTop="40dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/loginbutton_selector"
+            android:padding="3dp"
+            android:textColor="#009688"
+            android:textSize="17sp"
+            android:text="@string/create_course" />
+
+
+    <Button
+        android:id="@+id/button_create_session"
+        android:layout_marginTop="160dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/loginbutton_selector"
+        android:padding="3dp"
+        android:textColor="#009688"
+        android:textSize="17sp"
+        android:text="@string/create_session" />
+
+    <!--<Button-->
+        <!--android:id="@+id/button_past_records_prof"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/loginbutton_selector"-->
+        <!--android:padding="3dp"-->
+        <!--android:textColor="#009688"-->
+        <!--android:textSize="17sp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="280dp"-->
+        <!--android:text="@string/past_records" />-->
+            <!--android:onClick="onSignUpClicked"/>-->
+
+    <!--</LinearLayout>-->
+
+
+
+</RelativeLayout>

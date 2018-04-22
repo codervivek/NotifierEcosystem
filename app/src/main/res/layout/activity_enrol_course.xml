@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".EnrolCourseActivity">
+
+    <!--<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/txt_lan"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"-->
+        <!--android:padding="5dp">-->
+
+    <!--</CheckedTextView>-->
+
+    <ListView
+        android:id="@+id/course_list"
+        android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:layout_height="400dp">
+    </ListView>
+
+
+    <Button
+        android:id="@+id/button_enrol_course_fin"
+        android:layout_marginTop="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/loginbutton_selector"
+        android:padding="3dp"
+        android:textColor="#009688"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:text="@string/enrol_course"
+        android:layout_below="@id/course_list" />
+
+
+</RelativeLayout>
